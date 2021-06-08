@@ -1,0 +1,21 @@
+{
+  "name": "StatusLED",
+  "keywords": "led, status, blink",
+  "license": "MIT",
+  "repository": {
+	  "type": "git",
+	  "url": "https://github.com/alex-fu27/arduino-StatusLED"
+  },
+  "examples": [{
+	  "name": "Test with Serial",
+	  "base": "examples/serial",
+	  "files": ["serial.cpp"]
+  }],
+  "authors": {
+	  "name": "Alexander Fuchs",
+	  "email": "alex.fu27@gmail.com"
+  },
+  "description": "Display a status code using an LED",
+  "frameworks": "arduino",
+  "version": "1.0.0"
+}
