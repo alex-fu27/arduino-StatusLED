@@ -15,12 +15,12 @@ public:
 	 */
 	StatusLED(int pin, unsigned long shortBlinkTime,
 			unsigned long longBlinkTime, unsigned long blinkPause,
-			unsigned long pause);
+			unsigned long pause, bool inverted=false);
 
 	/*
 	 * Use default blink periods
 	 */
-	StatusLED(int pin);
+	StatusLED(int pin, bool inverted=false);
 
 	/*
 	 * Set status and number of bits in status.
@@ -36,6 +36,7 @@ public:
 
 private:
 	const int pin;
+	const bool inverted;
 	const unsigned long shortBlinkTime;
 	const unsigned long longBlinkTime;
 	const unsigned long blinkPause;
@@ -46,6 +47,7 @@ private:
 	unsigned long time;
 
 	void reset();
+	void setOutput(bool val);
 };
 
 #endif

@@ -3,19 +3,24 @@
 
 StatusLED::StatusLED(int pin, unsigned long shortBlinkTime,
 			unsigned long longBlinkTime, unsigned long blinkPause,
-			unsigned long pause):
-	pin(pin), shortBlinkTime(shortBlinkTime), longBlinkTime(longBlinkTime),
-	blinkPause(blinkPause), pause(pause), bitfield(0), indexMod(1), currentIndex(0)
+			unsigned long pause, bool inverted=false):
+	pin(pin), inverted(inverted), shortBlinkTime(shortBlinkTime), longBlinkTime(longBlinkTime),
+	blinkPause(blinkPause), pause(pause), bitfield(0), indexMod(1), currentIndex(0),
 {}
 
-StatusLED::StatusLED(int pin):
-	StatusLED(pin, 200, 400, 400, 1000)
+StatusLED::StatusLED(int pin, bool inverted=false):
+	StatusLED(pin, 200, 400, 400, 1000, inverted)
 {}
+
+void StatusLED::setOutput(bool state)
+{
+	digitalWrite(pin, state ^ inverted);
+}
 
 void StatusLED::reset()
 {
 	currentIndex = 0;
-	digitalWrite(pin, false);
+	setOutput(false);
 	time = millis() + pause;
 }
 
@@ -52,12 +57,12 @@ void StatusLED::update()
 	bool isLongBit = bitfield & (1 << bitnum);
 	unsigned long onTime = (isLongBit ? longBlinkTime : shortBlinkTime);
 	if (state == 0) { // on time
-		digitalWrite(pin, true);
+		setOutput(true);
 		time = millis() + onTime;
 		return;
 	}
 	// off time
-	digitalWrite(pin, false);
+	setOutput(false);
 	time = millis() + blinkPause;
 }
 
