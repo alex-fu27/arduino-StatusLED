@@ -3,12 +3,12 @@
 
 StatusLED::StatusLED(int pin, unsigned long shortBlinkTime,
 			unsigned long longBlinkTime, unsigned long blinkPause,
-			unsigned long pause, bool inverted=false):
+			unsigned long pause, bool inverted):
 	pin(pin), inverted(inverted), shortBlinkTime(shortBlinkTime), longBlinkTime(longBlinkTime),
 	blinkPause(blinkPause), pause(pause), bitfield(0), indexMod(1), currentIndex(0),
 {}
 
-StatusLED::StatusLED(int pin, bool inverted=false):
+StatusLED::StatusLED(int pin, bool inverted):
 	StatusLED(pin, 200, 400, 400, 1000, inverted)
 {}
 
